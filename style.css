@@ -4,11 +4,11 @@ body {
     margin: 0px;   
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     min-height: 100vh;
-    background: #d1d1d1;       
+    background: #f3dfc8;       
 }
 
 .header {
-    border-bottom: 1px solid;
+    border-bottom: 1px solid #3b2d25;
 }
 
 .width-container {
@@ -25,13 +25,22 @@ body {
     font-size: 16px;
     font-weight: 900;
     text-align: end;
-    padding-right: 6px;
+    padding: 12px;
+    color: #1C121A;
+    border: 1px solid #1C121A;
+    border-radius: 8px;
+    background: #CDA474;
+}
+
+.calc-nodel {
+    margin-right: 6px;
 }
 
 .screen {
     height: 100px;
-    border: 1px solid;
+    border: 1px solid #1C121A;
     border-radius: 8px;
+    background: #A4B4CD;
 }
 
 .upper-screen, .main-screen {
@@ -39,6 +48,7 @@ body {
     align-items: center;
     justify-content: flex-end;
     padding: 0 12px;
+    color: #1C121A;
     
 } 
 
@@ -68,6 +78,7 @@ body {
     height: 560px;
     border: 3px solid;
     border-radius: 20px;
+    background: #494352;
     margin: 24px;
     padding: 12px;
 }
@@ -89,17 +100,29 @@ body {
 }
 
 .calc-button {   
-    flex: 1;
-    background: rgb(230, 230, 230); 
+    flex: 1;    
     box-sizing: border-box;
-    border: 1px solid;   
+    border: 1px solid #1C121A;
+    background: #CDA474;   
     border-radius: 8px; 
+    font-weight: 500;
+    font-size: 40px;
+    color: #3b2d25;
+}
+
+.calc-button.brown {
+    background: #9A7761;
+}
+
+#clear {
+    background: #D25454;
 }
 
 .logo {
     font-size: 24px;
     font-weight: 900;
     margin-right: 6px;
+    color: #3b2d25;
 }
 
 
@@ -109,5 +132,6 @@ body {
     align-items: center;
     font-size: 16px;   
     height: 40px; 
-    border-top: 1px solid;
+    border-top: 1px solid #5A5266;
+    color: #3b2d25;
 }
