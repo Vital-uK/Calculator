@@ -21,9 +21,37 @@ body {
     padding: 0 16px;
 }
 
+.calc-header {
+    font-size: 16px;
+    font-weight: 900;
+    text-align: end;
+    padding-right: 6px;
+}
+
 .screen {
-    height: 60px;
+    height: 100px;
     border: 1px solid;
+    border-radius: 8px;
+}
+
+.upper-screen, .main-screen {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 12px;
+    
+} 
+
+.upper-screen {
+    height: 30px;
+    font-size: 20px; 
+      
+}
+
+.main-screen {
+    height: 70px; 
+    font-weight: 900;
+    font-size: 54px;   
 }
 
 .calc-container {
@@ -32,43 +60,46 @@ body {
     margin-right:auto;    
 }
 
-.calculator {        
+.calculator {  
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;      
     width: 380px;
     height: 560px;
     border: 3px solid;
     border-radius: 20px;
     margin: 24px;
-    padding: 6px;
+    padding: 12px;
 }
 
-.button-container {
-    display: flex; 
-    flex-direction: row;   
+.button-container {      
+    display: flex;        
     justify-content: space-between;    
-    border: 1px solid;
     height: 350px;
+    gap: 6px;
+    margin: 12px 0px;
 }
 
-.button-row {
+.button-column {
     flex: 1;
+    gap: 6px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;        
+    justify-content: space-between;    
 }
 
-.calc-button {
+.calc-button {   
     flex: 1;
+    background: rgb(230, 230, 230); 
     box-sizing: border-box;
-    background: gray;    
-}
-
-#plus {
-    flex: 2;
+    border: 1px solid;   
+    border-radius: 8px; 
 }
 
 .logo {
     font-size: 24px;
     font-weight: 900;
+    margin-right: 6px;
 }
 
 
