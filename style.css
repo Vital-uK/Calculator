@@ -21,8 +21,7 @@ body {
     padding: 0 16px;
 }
 
-.calc-header {
-    font-size: 16px;
+.calc-header {    
     font-weight: 900;
     text-align: end;
     padding: 12px;
@@ -32,8 +31,9 @@ body {
     background: #CDA474;
 }
 
-.calc-nodel {
-    margin-right: 6px;
+.calc-model {
+    margin: 16px 6px;
+    font-size: 20px;
 }
 
 .screen {
@@ -61,7 +61,7 @@ body {
 .main-screen {
     height: 70px; 
     font-weight: 900;
-    font-size: 54px;   
+    font-size: 52px;   
 }
 
 .calc-container {
@@ -105,7 +105,7 @@ body {
     border: 1px solid #1C121A;
     background: #CDA474;   
     border-radius: 8px; 
-    font-weight: 500;
+    font-weight: 900;
     font-size: 40px;
     color: #3b2d25;
 }
@@ -131,7 +131,6 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 16px;   
-    height: 40px; 
-    border-top: 1px solid #5A5266;
+    height: 40px;    
     color: #3b2d25;
 }
