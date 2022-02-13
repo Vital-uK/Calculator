@@ -45,11 +45,20 @@ const changeSign = function(a) {
     return betterResult(result);          
 }
 
+const operate = function(num1, num2, operator) {
+    switch (operator) {
+        case '+': return add(Number(num1),Number(num2));
+        case '-': return subtract(Number(num1),Number(num2));
+        case '*': return multiply(Number(num1),Number(num2));
+        case '/': return divide(Number(num1),Number(num2));
+        case '**': return toPower(Number(num1),Number(num2));        
+    }
+}
+
 const findButton = function(e) {
     if (e.key != 'Enter') {
         return document.querySelector(`button[value="${(e).key}"]`);
-    } else return document.querySelector(`button[value="="]`);
-    
+    } else return document.querySelector(`button[value="="]`);    
 }
 
 window.addEventListener('keydown', e => {    
@@ -57,22 +66,30 @@ window.addEventListener('keydown', e => {
     findButton(e).click();
     findButton(e).focus();    
 }); 
-window.addEventListener('keyup', e => {findButton(e).blur()}); 
+window.addEventListener('keyup', e => {
+    findButton(e).blur();
+}); 
 window.addEventListener('mousedown', e => {
     e.target.click();
     e.target.focus();    
 }); 
-window.addEventListener('mouseup', e => {e.target.blur()}); 
+window.addEventListener('mouseup', e => {
+    e.target.blur();
+}); 
 
 const mainScreen = document.querySelector('.main-screen');
 const upperScreen = document.querySelector('.upper-screen');
 const buttons = document.querySelectorAll('.calc-button');
+
 for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('mouseleave', event => event.target.blur());
     buttons[i].addEventListener('click', event => {
         mainScreen.textContent = event.target.value;        
     });
 }
 
-
-
-
+let currentTyping = '';
+let isTyping = true;
+let firstNumber = 0;
+let secondNumber = null;
+let lastOperator = '';
