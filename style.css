@@ -130,12 +130,12 @@ body {
     outline: none;
 }
 
-#clear {
+.calc-button.clear {
     background: #D25454;
     box-shadow: 0 3px #461e1e;
 }
 
-#clear:focus {
+.calc-button.clear:focus {
     transform: translateY(2px);
     box-shadow: 0 1px;
     outline: none;

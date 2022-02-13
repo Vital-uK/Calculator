@@ -55,9 +55,15 @@ const operate = function(num1, num2, operator) {
     }
 }
 
+const checkButton = function(e) {
+    let result = document.querySelector(`button[value="${(e).key}"]`);
+    if (result == null) result = Calc;
+    return result;
+}
+
 const findButton = function(e) {
     if (e.key != 'Enter') {
-        return document.querySelector(`button[value="${(e).key}"]`);
+        return checkButton(e);
     } else return document.querySelector(`button[value="="]`);    
 }
 
@@ -70,26 +76,54 @@ window.addEventListener('keyup', e => {
     findButton(e).blur();
 }); 
 window.addEventListener('mousedown', e => {
-    e.target.click();
     e.target.focus();    
 }); 
 window.addEventListener('mouseup', e => {
     e.target.blur();
 }); 
 
+const Calc = document.querySelector('.button-container');
 const mainScreen = document.querySelector('.main-screen');
-const upperScreen = document.querySelector('.upper-screen');
+const upperScreen = document.querySelector('.upper-screen').textContent;
 const buttons = document.querySelectorAll('.calc-button');
-
-for (let i = 0; i < buttons.length; i++) {
-    buttons[i].addEventListener('mouseleave', event => event.target.blur());
-    buttons[i].addEventListener('click', event => {
-        mainScreen.textContent = event.target.value;        
-    });
-}
-
 let currentTyping = '';
 let isTyping = true;
 let firstNumber = 0;
 let secondNumber = null;
 let lastOperator = '';
+
+for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('mouseleave', event => event.target.blur());
+    if (buttons[i].classList.contains('number')) {
+        buttons[i].addEventListener('click', event => {
+            if (isTyping) {
+                if (mainScreen.textContent == '0') mainScreen.textContent = '';
+                if (checkLength(mainScreen.textContent) < 10) {
+                    mainScreen.textContent += event.target.value;  
+                }
+            }    
+        });      
+    } else
+    if (buttons[i].classList.contains('sign')) {
+        buttons[i].addEventListener('click', event => {
+            if (isTyping) {
+                mainScreen.textContent = -Number(mainScreen.textContent);                
+            } //else fix secondNumber    
+        });
+    } else
+    if (buttons[i].classList.contains('dot')) {
+        buttons[i].addEventListener('click', event => {
+            if (isTyping) {
+                if (!mainScreen.textContent.includes('.')) mainScreen.textContent += '.';                
+            } //else fix secondNumber    
+        });
+    } else
+    if (buttons[i].classList.contains('backspace')) {
+        buttons[i].addEventListener('click', event => {
+            if (isTyping) {
+                if (!mainScreen.textContent.includes('.')) mainScreen.textContent += '.';                
+            } //else fix secondNumber    
+        });
+    }
+}
+
