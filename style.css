@@ -42,7 +42,7 @@ body {
     border: 2px solid #1C121A;
     border-radius: 8px;
     background: #A4B4CD;
-    box-shadow: inset 1px 1px 2px 1px #545c68;
+    box-shadow: inset 0px 1px 2px 1px #545c68;
 }
 
 .upper-screen, .main-screen {
@@ -113,9 +113,10 @@ body {
     box-shadow: 0 3px #382c1f;
 }
 
-.calc-button:active {
+.calc-button:focus {
     transform: translateY(2px);
-    box-shadow: 0 1px
+    box-shadow: 0 1px;
+    outline: none;
 } 
 
 .calc-button.brown {
@@ -123,9 +124,10 @@ body {
     box-shadow: 0 3px #2b211b;
 }
 
-.calc-button.brown:active {
+.calc-button.brown:focus{
     transform: translateY(2px);
-    box-shadow: 0 1px
+    box-shadow: 0 1px;
+    outline: none;
 }
 
 #clear {
@@ -133,9 +135,10 @@ body {
     box-shadow: 0 3px #461e1e;
 }
 
-#clear:active {
+#clear:focus {
     transform: translateY(2px);
-    box-shadow: 0 1px
+    box-shadow: 0 1px;
+    outline: none;
 }
 
 .logo {
