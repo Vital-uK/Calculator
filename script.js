@@ -7,7 +7,7 @@ const checkLength = function(string) {
 
 const betterResult = function(result) {
     result = +(result.toFixed(9));
-    if (checkLength(result.toString())>10) return result.toPrecision(10);
+    if (checkLength(result.toString())>10) return result.toPrecision(6);
     return result;
 }
 
@@ -31,8 +31,8 @@ const divide = function(a,b) {
     if (b != 0) {
         result = a/b;
         return betterResult(result);           
-    }
-    return 'ERROR';        
+    }       
+    return 'ERROR';                
 }
 
 const toPower = function(a,b) {
@@ -50,7 +50,10 @@ const operate = function(num1, num2, operator) {
         case '+': return add(Number(num1),Number(num2));
         case '-': return subtract(Number(num1),Number(num2));
         case '*': return multiply(Number(num1),Number(num2));
-        case '/': return divide(Number(num1),Number(num2));
+        case '/': 
+            let result = divide(Number(num1),Number(num2));
+            if (result == 'ERROR') return null
+                else return result; 
         case '**': return toPower(Number(num1),Number(num2));        
     }
 }
@@ -69,7 +72,7 @@ const findButton = function(e) {
 
 window.addEventListener('keydown', e => {    
     console.log(e.key);
-    findButton(e).click();
+    if (findButton(e).value != '=') findButton(e).click();
     findButton(e).focus();    
 }); 
 window.addEventListener('keyup', e => {
@@ -84,16 +87,17 @@ window.addEventListener('mouseup', e => {
 
 const Calc = document.querySelector('.button-container');
 const mainScreen = document.querySelector('.main-screen');
-const upperScreen = document.querySelector('.upper-screen').textContent;
+const upperScreen = document.querySelector('.upper-screen');
 const buttons = document.querySelectorAll('.calc-button');
 let currentTyping = '';
 let isTyping = true;
-let firstNumber = 0;
+let firstNumber = null;
 let secondNumber = null;
 let lastOperator = '';
 
 for (let i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('mouseleave', event => event.target.blur());
+
     if (buttons[i].classList.contains('number')) {
         buttons[i].addEventListener('click', event => {
             if (isTyping) {
@@ -101,28 +105,114 @@ for (let i = 0; i < buttons.length; i++) {
                 if (checkLength(mainScreen.textContent) < 10) {
                     mainScreen.textContent += event.target.value;  
                 }
+            } else {
+                isTyping = true;
+                mainScreen.textContent = event.target.value;
             }    
         });      
     } else
+
     if (buttons[i].classList.contains('sign')) {
         buttons[i].addEventListener('click', event => {
             if (isTyping) {
                 mainScreen.textContent = -Number(mainScreen.textContent);                
-            } //else fix secondNumber    
+            } else {
+                mainScreen.textContent = -Number(mainScreen.textContent);
+                secondNumber = Number(mainScreen.textContent);
+            }    
         });
     } else
+
     if (buttons[i].classList.contains('dot')) {
         buttons[i].addEventListener('click', event => {
             if (isTyping) {
                 if (!mainScreen.textContent.includes('.')) mainScreen.textContent += '.';                
-            } //else fix secondNumber    
+            }  else {
+                isTyping = true;
+                mainScreen.textContent = '0.';
+            }
         });
     } else
+
     if (buttons[i].classList.contains('backspace')) {
         buttons[i].addEventListener('click', event => {
+            const mainText = document.querySelector('.main-screen').textContent;
             if (isTyping) {
-                if (!mainScreen.textContent.includes('.')) mainScreen.textContent += '.';                
-            } //else fix secondNumber    
+                if (checkLength(mainText) > 1) mainScreen.textContent = mainText.slice(0,mainText.length-1);
+                else mainScreen.textContent = '0';
+            }               
+        });
+    } else
+
+    if (buttons[i].classList.contains('clear')) {
+        buttons[i].addEventListener('click', event => {
+            mainScreen.textContent = '0';
+            upperScreen.textContent = '';
+            currentTyping = '';
+            isTyping = true;
+            firstNumber = null;
+            secondNumber = null;
+            lastOperator = '';
+        });
+    } else
+
+    if (buttons[i].classList.contains('operator')) {
+        buttons[i].addEventListener('click', event => {
+            const mainText = document.querySelector('.main-screen').textContent;
+            const upperText = document.querySelector('.upper-screen').textContent;
+            if (firstNumber == null) {
+                firstNumber = Number(mainText);
+                lastOperator = event.target.value;
+                console.log(lastOperator);
+                upperScreen.textContent = `${firstNumber} ${lastOperator}`;
+                isTyping = false; 
+            } else if (secondNumber == null) {                
+                if (!isTyping) {
+                    lastOperator = event.target.value;
+                    upperScreen.textContent = `${firstNumber} ${lastOperator}`; 
+                } else {
+                    secondNumber = Number(mainText);
+                    let result = operate(firstNumber,secondNumber,lastOperator);
+                    lastOperator = event.target.value;
+                    firstNumber = result;
+                    secondNumber = null;                    
+                    upperScreen.textContent = `${result} ${lastOperator}`;
+                    isTyping = false;
+                }                
+            } else {
+                if (!isTyping) {
+                    let result = operate(firstNumber,secondNumber,lastOperator);
+                    lastOperator = event.target.value;
+                    firstNumber = result;
+                    secondNumber = null;                    
+                    upperScreen.textContent = `${result} ${lastOperator}`;
+                    isTyping = false;
+                } else {
+                    secondNumber = Number(mainText);
+                    let result = operate(firstNumber,secondNumber,lastOperator);
+                    lastOperator = event.target.value;
+                    firstNumber = result;
+                    secondNumber = null;                    
+                    upperScreen.textContent = `${result} ${lastOperator}`;
+                    isTyping = false;                    
+                }
+            }                   
+        });
+    } else
+
+    if (buttons[i].classList.contains('evaluate')) {
+        buttons[i].addEventListener('click', event => {
+            if (firstNumber != null) {
+                secondNumber = Number(mainScreen.textContent);
+                let result = operate(firstNumber,secondNumber,lastOperator);
+                firstNumber = null;
+                secondNumber = null;
+                lastOperator = ''                    
+                upperScreen.textContent = ``;
+                mainScreen.textContent = result;
+                isTyping = false;    
+            } else mainScreen.textContent = Number(mainScreen.textContent);            
+            
         });
     }
 }
