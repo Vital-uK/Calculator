@@ -213,7 +213,7 @@ for (let i = 0; i < buttons.length; i++) {
                 upperScreen.textContent = ``;
                 mainScreen.textContent = result;
                 isTyping = false;    
-            } else mainScreen.textContent = Number(mainScreen.textContent);            
+            } else mainScreen.textContent = betterResult(Number(mainScreen.textContent));            
             
         });
     }
