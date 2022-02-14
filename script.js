@@ -140,6 +140,8 @@ for (let i = 0; i < buttons.length; i++) {
             if (isTyping) {
                 if (checkLength(mainText) > 1) mainScreen.textContent = mainText.slice(0,mainText.length-1);
                 else mainScreen.textContent = '0';
+            } else {
+                mainScreen.textContent = '0';
             }               
         });
     } else
