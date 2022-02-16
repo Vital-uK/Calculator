@@ -70,6 +70,15 @@ const findButton = function(e) {
     } else return document.querySelector(`button[value="="]`);    
 }
 
+const normalOperate = function (event) {
+    let result = operate(firstNumber,secondNumber,lastOperator);
+    lastOperator = event.target.value;
+    firstNumber = result;
+    secondNumber = null;                    
+    upperScreen.textContent = `${result} ${lastOperator}`;
+    isTyping = false;  
+}
+
 window.addEventListener('keydown', e => {    
     console.log(e.key);
     if (findButton(e).value != '=') findButton(e).click();
@@ -168,37 +177,17 @@ for (let i = 0; i < buttons.length; i++) {
                 console.log(lastOperator);
                 upperScreen.textContent = `${firstNumber} ${lastOperator}`;
                 isTyping = false; 
-            } else if (secondNumber == null) {                
-                if (!isTyping) {
+            } else if (!isTyping) {
+                if (secondNumber == null) {
                     lastOperator = event.target.value;
-                    upperScreen.textContent = `${firstNumber} ${lastOperator}`; 
-                } else {
-                    secondNumber = Number(mainText);
-                    let result = operate(firstNumber,secondNumber,lastOperator);
-                    lastOperator = event.target.value;
-                    firstNumber = result;
-                    secondNumber = null;                    
-                    upperScreen.textContent = `${result} ${lastOperator}`;
-                    isTyping = false;
-                }                
+                    upperScreen.textContent = `${firstNumber} ${lastOperator}`;
+                } else {                    
+                    normalOperate(event);
+                } 
             } else {
-                if (!isTyping) {
-                    let result = operate(firstNumber,secondNumber,lastOperator);
-                    lastOperator = event.target.value;
-                    firstNumber = result;
-                    secondNumber = null;                    
-                    upperScreen.textContent = `${result} ${lastOperator}`;
-                    isTyping = false;
-                } else {
-                    secondNumber = Number(mainText);
-                    let result = operate(firstNumber,secondNumber,lastOperator);
-                    lastOperator = event.target.value;
-                    firstNumber = result;
-                    secondNumber = null;                    
-                    upperScreen.textContent = `${result} ${lastOperator}`;
-                    isTyping = false;                    
-                }
-            }                   
+                secondNumber = Number(mainText);
+                normalOperate(event);
+            }                               
         });
     } else
 
